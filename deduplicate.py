@@ -27,7 +27,7 @@ Image format is preserved, but color table may be padded.''')
         sample = source.crop((0, i * args.height, source.size[0], (i+1) * args.height))
         match = False
         for tile, j in zip(tiles, range(len(tiles))):
-            if sample.tostring() == tile.tostring():
+            if sample.tobytes() == tile.tobytes():
                 names.append(j)
                 match = True
                 break
