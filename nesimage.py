@@ -126,8 +126,16 @@ if __name__ == '__main__':
     best_index = pattern_options.index(sorted(pattern_options,key=len)[0])
     print()
     print('{} tiles'.format(len(pattern_options[best_index])))
-    for line in palette_options[best_index][::-1]:
-        args.palette.write(bytes(line[::-1]))
+    for l in range(3,-1,-1):
+        print(l)
+        if l < len(palette_options[best_index]):
+            line = palette_options[best_index][l]
+            if len(line) < 4:
+                line += tuple([bg for i in range(4-len(line))])
+            args.palette.write(bytes(line[::-1]))
+        else:
+            args.palette.write(bytes([bg for i in range(4)]))
+            
     pattern_table = tuple(pattern_options[best_index])
     for row in tile_maps[best_index]:
         for tile in row:
