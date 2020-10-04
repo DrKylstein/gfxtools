@@ -60,7 +60,7 @@ if __name__ == '__main__':
             for b in range(image.size[0]//8):
                 octet = 0;
                 for x in range(8):
-                    if colors[image.getpixel((b*8 + x,y))] & (1 << p):
+                    if colors[image.getpixel((b*8 + x,y)) & (2**color_planes-1)] & (1 << p):
                         octet = octet + (0x80 >> x)
                 data.append(octet)
                 

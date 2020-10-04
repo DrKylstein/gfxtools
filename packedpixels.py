@@ -23,6 +23,7 @@ if __name__ == '__main__':
     image = Image.open(io.BytesIO(sys.stdin.buffer.read()))
     
     pixels_per_byte = 8 // args.bpp
+    pixel_mask = 2**args.bpp - 1
         
     for j in range(args.interleave):
         for k in range(args.columns):
@@ -32,7 +33,7 @@ if __name__ == '__main__':
                     for i in range(pixels_per_byte):
                         byte <<= args.bpp
                         pixel = image.getpixel(((x*args.columns + k)*pixels_per_byte + i, y*args.interleave + j))
-                        byte |= pixel
+                        byte |= pixel & pixel_mask
                     sys.stdout.buffer.write(bytes([byte]))
         for i in range(args.padding):
             sys.stdout.buffer.write(bytes([0]))
